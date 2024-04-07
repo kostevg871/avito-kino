@@ -1,11 +1,8 @@
 import "./App.css";
+import MainPage from "./pages/MainPage";
 
 function App() {
-  return (
-    <div>
-      <p>Кино авито</p>
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;
