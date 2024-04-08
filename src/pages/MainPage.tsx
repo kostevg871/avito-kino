@@ -7,8 +7,6 @@ const MainPage = () => {
     limit: 20,
   });
 
-  console.log(data?.docs[0]);
-
   return (
     <Flex wrap="wrap" gap="small" justify="center">
       {data?.docs.map((movie) => {

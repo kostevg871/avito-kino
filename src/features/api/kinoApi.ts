@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IMovies } from "../../utils/types";
 
-const BASE_URL = process.env.REACT_APP_BASE_API_URL;
-const API_KEY = process.env.REACT_APP_KINO_API_KEY;
+const BASE_URL = process.env.BASE_API_URL;
+const API_KEY = process.env.KINO_API_KEY;
 
 interface MoviesApiResponse {
   docs: IMovies[];
