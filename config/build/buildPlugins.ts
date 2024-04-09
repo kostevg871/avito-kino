@@ -13,6 +13,7 @@ export function buildPlugins({
   return [
     new HtmlWebpackPlugin({
       template: paths.html,
+      title: "AvitoKino",
       favicon: path.resolve(paths.public, "favicon.ico"),
     }),
     new MiniCssExtractPlugin({
