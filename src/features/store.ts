@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
-import { moviesApi } from "./api/kinoApi";
+import { moviesApi } from "./api/moviesApi";
 
 export const store = configureStore({
-  reducer: { [moviesApi.reducerPath]: moviesApi.reducer },
+  reducer: {
+    [moviesApi.reducerPath]: moviesApi.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(moviesApi.middleware),
 });

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IMovies } from "../../utils/types";
+import { IMovie, IMovies } from "../../utils/types";
 
 const BASE_URL = process.env.BASE_API_URL;
 const API_KEY = process.env.KINO_API_KEY;
@@ -7,12 +7,20 @@ const API_KEY = process.env.KINO_API_KEY;
 interface MoviesApiResponse {
   docs: IMovies[];
   page: number;
+  pages: number;
+  status: string;
+}
+
+interface MovieApiResponse {
+  docs: IMovie;
+  page: number;
+  pages: number;
   status: string;
 }
 
 interface ParamsType {
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
 }
 
 export const moviesApi = createApi({
@@ -34,7 +42,17 @@ export const moviesApi = createApi({
         };
       },
     }),
+    getMovieByID: builder.query<MovieApiResponse, number>({
+      query: (id) => {
+        return {
+          url: `/v1.4/movie/${id}`,
+          headers: {
+            "X-API-KEY": API_KEY,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetMoviesQuery } = moviesApi;
+export const { useGetMoviesQuery, useGetMovieByIDQuery } = moviesApi;

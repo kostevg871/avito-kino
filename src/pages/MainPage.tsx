@@ -1,23 +1,55 @@
-import { Flex, Card, Image } from "antd";
-import { useGetMoviesQuery } from "../features/api/kinoApi";
+import { Flex, Card, Image, Pagination, Spin } from "antd";
+import { Typography } from "antd";
+import { IMovies } from "../utils/types";
+import { useGetMoviesQuery } from "../features/api/moviesApi";
+import { useState } from "react";
+
+const { Title } = Typography;
 
 const MainPage = () => {
-  const { data } = useGetMoviesQuery({
-    page: 2,
-    limit: 20,
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const { data, isLoading } = useGetMoviesQuery({
+    page: page,
+    limit: limit,
   });
 
   return (
-    <Flex wrap="wrap" gap="small" justify="center">
-      {data?.docs.map((movie) => {
-        return (
-          <Card key={movie.id}>
-            <Image width={200} src={movie.poster.previewUrl} />
-            <p>{movie.name}</p>
-          </Card>
-        );
-      })}
-    </Flex>
+    <>
+      <Typography.Title>Фильмы</Typography.Title>
+      <Pagination
+        defaultCurrent={page}
+        defaultPageSize={limit}
+        total={data?.pages}
+        onChange={(page, limit) => {
+          setPage(page);
+          setLimit(limit);
+        }}
+      />
+
+      <Flex justify="center" wrap="wrap" gap="small">
+        {!isLoading ? (
+          data?.docs.map((movie: IMovies) => {
+            return (
+              <Card
+                key={movie.id}
+                size="small"
+                styles={{ body: { padding: 10, maxWidth: 220 } }}
+              >
+                <Image
+                  width={200}
+                  src={movie.poster.previewUrl}
+                  preview={false}
+                />
+                <Title level={5}>{movie.name}</Title>
+              </Card>
+            );
+          })
+        ) : (
+          <Spin />
+        )}
+      </Flex>
+    </>
   );
 };
 
