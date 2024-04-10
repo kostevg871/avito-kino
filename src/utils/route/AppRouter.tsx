@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "../../pages/MainPage";
 import LayoutApp from "../../app/LayoutApp";
+import SingleMovie from "../../pages/SingleMovie";
 
 export const appRouter = createBrowserRouter([
   {
@@ -8,7 +9,7 @@ export const appRouter = createBrowserRouter([
     errorElement: <div>Error</div>,
     children: [
       { path: "/", element: <MainPage /> },
-      { path: "/movies/:id", element: <div>id</div> },
+      { path: "/movie/:id", element: <SingleMovie /> },
     ],
   },
 ]);

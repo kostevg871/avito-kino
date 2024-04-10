@@ -9,6 +9,13 @@ export interface IMovies {
   pages: number;
 }
 
+export interface MoviesApiResponse {
+  docs: IMovies[];
+  page: number;
+  pages: number;
+  status: string;
+}
+
 interface IPosterMovie {
   url: string;
   previewUrl: string;
@@ -24,10 +31,11 @@ interface IRaiting {
   filmCritics: number;
 }
 
-interface IPersons {
+export interface IPersons {
   id: number;
   photo: string;
   name: string;
+  description: string;
 }
 
 export interface IMovie {

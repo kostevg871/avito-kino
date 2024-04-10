@@ -1,22 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IMovie, IMovies } from "../../utils/types";
+import { IMovie, MoviesApiResponse } from "../../utils/types";
 
 const BASE_URL = process.env.BASE_API_URL;
 const API_KEY = process.env.KINO_API_KEY;
 
-interface MoviesApiResponse {
-  docs: IMovies[];
-  page: number;
-  pages: number;
-  status: string;
-}
 
-interface MovieApiResponse {
-  docs: IMovie;
-  page: number;
-  pages: number;
-  status: string;
-}
 
 interface ParamsType {
   page?: number;
@@ -42,7 +30,7 @@ export const moviesApi = createApi({
         };
       },
     }),
-    getMovieByID: builder.query<MovieApiResponse, number>({
+    getMovieByID: builder.query<IMovie, number>({
       query: (id) => {
         return {
           url: `/v1.4/movie/${id}`,
