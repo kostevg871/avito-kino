@@ -1,5 +1,5 @@
 import { ConfigProvider } from "antd";
-import LayoutApp from "./components/LayoutApp";
+import LayoutApp from "./LayoutApp";
 
 function App() {
   return (

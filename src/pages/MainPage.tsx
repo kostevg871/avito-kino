@@ -20,6 +20,7 @@ const MainPage = () => {
       <Pagination
         defaultCurrent={page}
         defaultPageSize={limit}
+        showSizeChanger={true}
         total={data?.pages}
         onChange={(page, limit) => {
           setPage(page);
