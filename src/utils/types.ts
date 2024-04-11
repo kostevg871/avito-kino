@@ -49,3 +49,10 @@ export interface IMovie {
   poster: IPosterMovie;
   genres: IGenres[];
 }
+
+export interface IReview {
+  id: number;
+  title: string;
+  review: string;
+  data: string;
+}

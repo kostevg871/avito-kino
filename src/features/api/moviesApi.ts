@@ -40,7 +40,17 @@ export const moviesApi = createApi({
         };
       },
     }),
+  getMovieReview:builder.query<IMovie, number>({
+	query: (id) => {
+	  return {
+		url: `/v1.4/movie/${id}`,
+		headers: {
+		  "X-API-KEY": API_KEY,
+		},
+	  };
+	},
   }),
+}),
 });
 
 export const { useGetMoviesQuery, useGetMovieByIDQuery } = moviesApi;

@@ -1,15 +1,27 @@
 import { Pagination } from "antd";
 import { Typography } from "antd";
 import { useGetMoviesQuery } from "../features/api/moviesApi";
-import { useState } from "react";
 import CustomList from "../components/CustomList";
+import { useSearchParams } from "react-router-dom";
 
 const MainPage = () => {
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [pageParams, setPageParams] = useSearchParams();
+  const [limitParams, setLimitParams] = useSearchParams();
+
+  const pageParamsQuery = Number(pageParams.get("page")) || 1;
+  const limitParamsQuery = Number(limitParams.get("limit")) || 10;
+
+  const handlerPaginationChange = (page: number, limit: number) => {
+    const params = new URLSearchParams();
+    params.set("page", `${page}`);
+    params.set("limit", `${limit}`);
+    setPageParams(params, { preventScrollReset: true });
+    setLimitParams(params, { preventScrollReset: true });
+  };
+
   const { data, isLoading } = useGetMoviesQuery({
-    page: page,
-    limit: limit,
+    page: pageParamsQuery,
+    limit: limitParamsQuery,
   });
 
   return (
@@ -19,18 +31,15 @@ const MainPage = () => {
         <></>
       ) : (
         <Pagination
-          defaultCurrent={page}
-          defaultPageSize={limit}
+          defaultCurrent={pageParamsQuery}
+          defaultPageSize={limitParamsQuery}
           showSizeChanger={true}
           total={data?.pages}
-          onChange={(page, limit) => {
-            setPage(page);
-            setLimit(limit);
-          }}
+          onChange={(page, limit) => handlerPaginationChange(page, limit)}
         />
       )}
 
-      <CustomList page_size={page} limit_size={limit} />
+      <CustomList page_size={pageParamsQuery} limit_size={limitParamsQuery} />
     </>
   );
 };
