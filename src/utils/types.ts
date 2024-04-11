@@ -14,6 +14,7 @@ export interface MoviesApiResponse {
   page: number;
   pages: number;
   status: string;
+  total: number;
 }
 
 interface IPosterMovie {
