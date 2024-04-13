@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useGetMovieByIDQuery } from "../features/api/moviesApi";
 import { Flex, Spin, Typography } from "antd";
 import { ListPersons } from "../components/ListPersons";
-import { ReviewsByFilms } from "../components/reviewsByFilms";
+import { ReviewsByFilms } from "../components/ReviewsByFilms";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -16,7 +16,7 @@ const SingleMovie = () => {
         <Flex vertical={true}>
           <Title>{data?.name}</Title>
           <Paragraph>{data?.description}</Paragraph>
-          <Flex justify="space-between">
+          <Flex justify="space-between" wrap="wrap">
             <Text>kp: {data?.rating.kp}</Text>
             <Text>Критики: {data?.rating.filmCritics}</Text>
             <Text>Imdb: {data?.rating.imdb}</Text>

@@ -18,7 +18,7 @@ export const ListPersons = ({ persons }: IProps) => {
           hideOnSinglePage: true,
         }
       }
-      grid={{ gutter: 16, xs: 2, sm: 2, md: 3, lg: 3 }}
+      grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3 }}
       dataSource={persons}
       header={<Text>Актеры</Text>}
       renderItem={(person) => (
