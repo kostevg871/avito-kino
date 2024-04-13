@@ -18,20 +18,34 @@ export const moviesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ["Movies", "MoviesSearch"],
   endpoints: (builder) => ({
-    getMovies: builder.query<MoviesApiResponse, ParamsType>({
+    getMovies: builder.query<MoviesApiResponse, ParamsTypeSearch>({
       providesTags: ["Movies"],
       query: (params) => {
-        const { page = 1, limit = 10 } = params || {};
-        return {
-          url: "/v1.4/movie",
-          params: {
-            page,
-            limit,
-          },
-          headers: {
-            "X-API-KEY": API_KEY,
-          },
-        };
+        const { page = 1, limit = 10, query } = params || {};
+        if (query === "" || undefined) {
+          return {
+            url: "/v1.4/movie",
+            params: {
+              page,
+              limit,
+            },
+            headers: {
+              "X-API-KEY": API_KEY,
+            },
+          };
+        } else {
+          return {
+            url: `/v1.4/movie/search`,
+            params: {
+              page,
+              limit,
+              query,
+            },
+            headers: {
+              "X-API-KEY": API_KEY,
+            },
+          };
+        }
       },
     }),
     getMovieByID: builder.query<IMovie, number>({
@@ -44,27 +58,12 @@ export const moviesApi = createApi({
         };
       },
     }),
-    getMovieSearch: builder.query<MoviesApiResponse, ParamsTypeSearch>({
-      query: (params) => {
-        const { page = 1, limit = 10, query = "" } = params || {};
-        return {
-          url: `/v1.4/movie/search`,
-          params: {
-            page,
-            limit,
-            query,
-          },
-          headers: {
-            "X-API-KEY": API_KEY,
-          },
-        };
-      },
-    }),
+    //getMovieSearch: builder.query<MoviesApiResponse, ParamsTypeSearch>({
+    //  query: (params) => {
+    //    const { page = 1, limit = 10, query = "" } = params || {};
+    //  },
+    //}),
   }),
 });
 
-export const {
-  useGetMoviesQuery,
-  useGetMovieByIDQuery,
-  useGetMovieSearchQuery,
-} = moviesApi;
+export const { useGetMoviesQuery, useGetMovieByIDQuery } = moviesApi;

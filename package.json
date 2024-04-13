@@ -14,6 +14,7 @@
     "antd": "^5.16.1",
     "dotenv": "^16.4.5",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@types/dotenv-webpack": "^7.0.7",
+    "@types/lodash": "^4.17.0",
     "@types/webpack": "^5.28.5",
     "@types/webpack-dev-server": "^4.7.2",
     "css-loader": "^7.0.0",

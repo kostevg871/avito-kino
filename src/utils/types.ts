@@ -12,6 +12,7 @@ export interface IMovies {
 export interface MoviesApiResponse {
   docs: IMovies[];
   page: number;
+  limit: number;
   pages: number;
   status: string;
   total: number;

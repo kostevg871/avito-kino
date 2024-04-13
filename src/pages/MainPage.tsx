@@ -2,61 +2,82 @@ import { Pagination, Typography, Input } from "antd";
 import { useGetMoviesQuery } from "../features/api/moviesApi";
 import CustomList from "../components/CustomList";
 import { useSearchParams } from "react-router-dom";
-import useDebounce from "../utils/hooks/useDebounce";
+import { ChangeEvent } from "react";
+import { debounce } from "lodash";
 
 const MainPage = () => {
   const [pageParams, setPageParams] = useSearchParams();
-  const [limitParams, setLimitParams] = useSearchParams();
-  const [searchParams, setSeacrhParams] = useSearchParams();
 
   const pageParamsQuery = Number(pageParams.get("page")) || 1;
-  const limitParamsQuery = Number(limitParams.get("limit")) || 10;
-  const searchParamsQuery = useDebounce(searchParams.get("query") || "");
+  const limitParamsQuery = Number(pageParams.get("limit")) || 10;
+  const searchParamsQuery = pageParams.get("query") || "";
 
   const handlerPaginationChange = (page: number, limit: number) => {
-    const params = new URLSearchParams();
-    params.set("page", `${page}`);
-    params.set("limit", `${limit}`);
-    if (searchParams.get("query") === "") {
-      params.set("query", searchParamsQuery);
+    if (
+      searchParamsQuery === null ||
+      searchParamsQuery === undefined ||
+      searchParamsQuery === ""
+    ) {
+      pageParams.delete("query");
+      pageParams.set("page", `${page}`);
+      pageParams.set("limit", `${limit}`);
+    } else {
+      pageParams.set("query", `${searchParamsQuery}`);
+      pageParams.set("page", `${page}`);
+      pageParams.set("limit", `${limit}`);
     }
-    setPageParams(params, { preventScrollReset: true });
-    setLimitParams(params, { preventScrollReset: true });
+    setPageParams(pageParams);
   };
 
-  const handlerSearchChange = (name: string) => {
-    const params = new URLSearchParams();
-    params.set("query", name);
-    params.set("page", "1");
-    setSeacrhParams(params, { preventScrollReset: true });
-    setPageParams(params, { preventScrollReset: true });
+  const handlerSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.value;
+    if (name === "") {
+      pageParams.delete("query");
+      pageParams.set("page", `${pageParamsQuery}`);
+      pageParams.set("limit", `${limitParamsQuery}`);
+    } else {
+      pageParams.set("query", name);
+      pageParams.set("page", `1`);
+      pageParams.set("limit", `${limitParamsQuery}`);
+    }
+    setPageParams(pageParams);
   };
-  const movies = useGetMoviesQuery({
+
+  const searchDebounce = debounce(handlerSearchChange, 1000);
+
+  const { data: moviesData, isLoading: moviesLoading } = useGetMoviesQuery({
     page: pageParamsQuery,
     limit: limitParamsQuery,
+    query: searchParamsQuery,
   });
 
   return (
     <>
       <Typography.Title>Фильмы</Typography.Title>
+
       <Input
-        defaultValue={searchParamsQuery}
+        defaultValue={searchParamsQuery || ""}
         placeholder="Поиск по названию..."
-        onChange={(e) => handlerSearchChange(e.target.value)}
+        onChange={searchDebounce}
       />
-      {movies.isLoading ? (
+
+      {moviesLoading ? (
         <></>
       ) : (
         <Pagination
-          defaultCurrent={pageParamsQuery}
+          current={moviesData?.page}
           defaultPageSize={limitParamsQuery}
           showSizeChanger={true}
-          total={movies.data?.pages}
+          total={moviesData?.pages}
           onChange={(page, limit) => handlerPaginationChange(page, limit)}
         />
       )}
 
-      <CustomList page_size={pageParamsQuery} limit_size={limitParamsQuery} />
+      <CustomList
+        page={pageParamsQuery}
+        limit_size={limitParamsQuery}
+        query={searchParamsQuery}
+      />
     </>
   );
 };

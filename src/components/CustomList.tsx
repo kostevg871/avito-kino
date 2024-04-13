@@ -1,21 +1,22 @@
 import { Flex, Card, Spin, Typography, Image } from "antd";
-import { IMovie, IMovies } from "../utils/types";
+import { IMovies } from "../utils/types";
 import { useNavigate } from "react-router-dom";
 import { useGetMoviesQuery } from "../features/api/moviesApi";
 
 const { Title } = Typography;
 
 interface IProps {
-  page_size: number;
+  page: number;
   limit_size: number;
-  data?: IMovie;
+  query: string;
 }
 
-const CustomList = ({ page_size, limit_size }: IProps) => {
+const CustomList = ({ page, limit_size, query }: IProps) => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetMoviesQuery({
-    page: page_size,
+    page: page,
     limit: limit_size,
+    query: query,
   });
 
   return (
