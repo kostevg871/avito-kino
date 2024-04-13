@@ -18,7 +18,7 @@ export interface MoviesApiResponse {
   total: number;
 }
 
-interface IPosterMovie {
+export interface IPosterMovie {
   url: string;
   previewUrl: string;
 }

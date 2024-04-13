@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useGetMovieByIDQuery } from "../features/api/moviesApi";
-import { Flex, Spin, Typography } from "antd";
+import { Col, Flex, Spin, Typography } from "antd";
 import { ListPersons } from "../components/ListPersons";
 import { ReviewsByFilms } from "../components/ReviewsByFilms";
+import CarouselPoster from "../components/CarouselPoster";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -13,7 +14,7 @@ const SingleMovie = () => {
   return (
     <div>
       {isSuccess ? (
-        <Flex vertical={true}>
+        <>
           <Title>{data?.name}</Title>
           <Paragraph>{data?.description}</Paragraph>
           <Flex justify="space-between" wrap="wrap">
@@ -23,7 +24,8 @@ const SingleMovie = () => {
           </Flex>
           <ListPersons persons={data?.persons} />
           <ReviewsByFilms movieId={id!.toString()} />
-        </Flex>
+          <CarouselPoster movieId={`${id}`} />
+        </>
       ) : (
         <Spin />
       )}
