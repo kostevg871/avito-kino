@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetMovieByIDQuery } from "../features/api/moviesApi";
-import { Col, Flex, Spin, Typography } from "antd";
+import { Flex, Spin, Typography } from "antd";
 import { ListPersons } from "../components/ListPersons";
 import { ReviewsByFilms } from "../components/ReviewsByFilms";
 import CarouselPoster from "../components/CarouselPoster";
