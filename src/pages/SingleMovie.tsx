@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useGetMovieByIDQuery } from "../features/api/moviesApi";
 import { Flex, Spin, Typography } from "antd";
 import { ListPersons } from "../components/ListPersons";
+import { ReviewsByFilms } from "../components/reviewsByFilms";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -21,6 +22,7 @@ const SingleMovie = () => {
             <Text>Imdb: {data?.rating.imdb}</Text>
           </Flex>
           <ListPersons persons={data?.persons} />
+          <ReviewsByFilms movieId={id!.toString()} />
         </Flex>
       ) : (
         <Spin />

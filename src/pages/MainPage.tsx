@@ -33,7 +33,7 @@ const MainPage = () => {
     const name = e.target.value;
     if (name === "") {
       pageParams.delete("query");
-      pageParams.set("page", `${pageParamsQuery}`);
+      pageParams.set("page", "1");
       pageParams.set("limit", `${limitParamsQuery}`);
     } else {
       pageParams.set("query", name);

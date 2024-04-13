@@ -58,11 +58,6 @@ export const moviesApi = createApi({
         };
       },
     }),
-    //getMovieSearch: builder.query<MoviesApiResponse, ParamsTypeSearch>({
-    //  query: (params) => {
-    //    const { page = 1, limit = 10, query = "" } = params || {};
-    //  },
-    //}),
   }),
 });
 
