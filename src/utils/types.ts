@@ -16,6 +16,7 @@ export interface MoviesApiResponse {
   pages: number;
   status: string;
   total: number;
+  isSeries: boolean;
 }
 
 export interface IPosterMovie {
@@ -50,6 +51,7 @@ export interface IMovie {
   persons: IPersons[];
   poster: IPosterMovie;
   genres: IGenres[];
+  isSeries: boolean;
 }
 
 export interface IReview {
@@ -57,4 +59,21 @@ export interface IReview {
   title: string;
   review: string;
   data: string;
+}
+
+export interface ISeason {
+  movieId: number;
+  number: number;
+  episodes: ISeries[];
+  episodesCount: number;
+}
+
+interface ISeries {
+  number: number;
+  name: string;
+  still: IStill;
+}
+
+interface IStill {
+  url: string;
 }

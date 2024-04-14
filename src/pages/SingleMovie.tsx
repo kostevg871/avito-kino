@@ -4,6 +4,7 @@ import { Flex, Spin, Typography } from "antd";
 import { ListPersons } from "../components/ListPersons";
 import { ReviewsByFilms } from "../components/ReviewsByFilms";
 import CarouselPoster from "../components/CarouselPoster";
+import { SeriesCard } from "../components/SeriesCard";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -22,6 +23,8 @@ const SingleMovie = () => {
             <Text>Критики: {data?.rating.filmCritics}</Text>
             <Text>Imdb: {data?.rating.imdb}</Text>
           </Flex>
+          {data.isSeries ? <SeriesCard id={Number(id)} /> : <></>}
+
           <ListPersons persons={data?.persons} />
           <ReviewsByFilms movieId={id!.toString()} />
           <CarouselPoster movieId={`${id}`} />
