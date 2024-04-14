@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IPoster } from "../../utils/types/reviewsType";
+import { IPoster } from "../../utils/types";
 
 const BASE_URL = process.env.BASE_API_URL;
 const API_KEY = process.env.KINO_API_KEY;
