@@ -21,6 +21,9 @@ export function buildPlugins({
       chunkFilename: "css/[name].[contenthash:8].css",
     }),
     new Dotenv(),
+    new webpack.DefinePlugin({
+      "process.env.TOKEN": JSON.stringify(process.env.TOKEN),
+    }),
     isDev ? new webpack.ProgressPlugin() : undefined,
   ];
 }

@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IReview } from "../../utils/types";
+import { BASE_API_URL } from "../../utils/constants";
 
-const BASE_URL = process.env.BASE_API_URL;
-const API_KEY = process.env.KINO_API_KEY;
+const BASE_URL = BASE_API_URL;
+const API_KEY = process.env.TOKEN;
 
 interface ParamsType {
   page?: number;
