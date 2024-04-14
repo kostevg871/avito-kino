@@ -1,46 +1,46 @@
-# Getting Started with Create React App
+# Тестовое задание для стажёра Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+см. <https://github.com/avito-tech/frontend-trainee-assignment-2024>
 
-## Available Scripts
+## Запуск
 
-In the project directory, you can run:
+Проект доступен по ссылке: <http://localhost:7070>
 
-### `npm start`
+### Локально
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+git clone git@github.com:FasTrss/my-movie-app.git
+npm install
+TOKEN=<your api token> npm run start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Выполненые функциональные требования
 
-### `npm test`
+### Страница со списком всех фильмов
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Отображается список фильмов и сериалов
+2. Реализована  пагинация
+3. Можно выбрать количество фильмов для показа на странице (по умолчанию должно быть 10)
+4. Реализован поиск по названию фильма
+5. Можно перейти на страницу фильма из выдачи
 
-### `npm run build`
+#### Дополнительно
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Реализована возможность поделиться результатами выдачи с другими пользователями через копирование ссылки. (Подсказка: для этого можно записывать в query-параметры фильтры и пагинацию)
+2. Если поиск осуществляется не при каждом вводе символа, а в момент когда с ввода последнего символа прошла 1 секунда (debounce)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Страница с отдельным фильмом:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Отображается информация о фильме или сериале, в том числе:
 
-### `npm run eject`
+   - название фильма/сериала
+   - описание
+   - рейтинг
+   - список актёров (с пагинацией, если их больше 10);
+   - список сезонов и серий (с пагинацией, если они подразумеваются)
+   - отзывы пользователей (с пагинацией)
+   - постеры, отображение которых реализовано в виде «карусели»
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. В случае, если какой-то из списков пустой (список отзывов, актёров, сезонов), реализовано отображение заглушки на подобие «нет информации о ...»
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Реализована кнопка «назад», которая ведет на выдачу. Фильтры и номер страницы при этом должны сохраняться.
