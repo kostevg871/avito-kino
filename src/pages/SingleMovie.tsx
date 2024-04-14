@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetMovieByIDQuery } from "../features/api/moviesApi";
-import { Flex, Spin, Typography } from "antd";
+import { Button, Flex, Spin, Typography } from "antd";
 import { ListPersons } from "../components/ListPersons";
 import { ReviewsByFilms } from "../components/ReviewsByFilms";
 import CarouselPoster from "../components/CarouselPoster";
@@ -11,9 +11,13 @@ const { Title, Text, Paragraph } = Typography;
 const SingleMovie = () => {
   const { id } = useParams();
   const { data, isSuccess } = useGetMovieByIDQuery(Number(id));
+  const navigate = useNavigate();
 
   return (
     <div style={{ padding: "20px" }}>
+      <Button type="primary" onClick={() => navigate(-1)}>
+        Назад
+      </Button>
       {isSuccess ? (
         <>
           <Title>{data?.name}</Title>
