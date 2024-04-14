@@ -1,8 +1,9 @@
-import { Flex, List } from "antd";
+import { Flex, List, Spin, Typography } from "antd";
 import { useGetReviewsByIdQuery } from "../features/api/reviewsApi";
 import { ReviewCard } from "./ReviewCard";
-import Title from "antd/es/typography/Title";
 import { useState } from "react";
+
+const { Title, Text } = Typography;
 
 interface IProps {
   movieId: string;
@@ -10,7 +11,7 @@ interface IProps {
 
 export const ReviewsByFilms = ({ movieId }: IProps) => {
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useGetReviewsByIdQuery({
+  const { data, isLoading, isSuccess } = useGetReviewsByIdQuery({
     movieId: movieId,
     page: page,
   });
@@ -20,7 +21,9 @@ export const ReviewsByFilms = ({ movieId }: IProps) => {
       <Title>Отзывы</Title>
 
       {isLoading ? (
-        <></>
+        <Spin></Spin>
+      ) : isSuccess && data.docs.length === 0 ? (
+        <Text>Нет отзывов</Text>
       ) : (
         <Flex wrap="wrap" justify="space-between">
           <List

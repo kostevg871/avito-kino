@@ -10,7 +10,7 @@ const { Title, Text, Paragraph } = Typography;
 
 const SingleMovie = () => {
   const { id } = useParams();
-  const { data, isSuccess } = useGetMovieByIDQuery(Number(id));
+  const { data, isSuccess, isLoading } = useGetMovieByIDQuery(Number(id));
   const navigate = useNavigate();
 
   return (
@@ -28,8 +28,14 @@ const SingleMovie = () => {
             <Text>Imdb: {data?.rating.imdb}</Text>
           </Flex>
           {data.isSeries ? <SeriesCard id={Number(id)} /> : <></>}
-
-          <ListPersons persons={data?.persons} />
+          <Flex justify="space-between" wrap="wrap">
+            <ListPersons
+              persons={data?.persons}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+              total={data.persons.length}
+            />
+          </Flex>
           <ReviewsByFilms movieId={id!.toString()} />
           <CarouselPoster movieId={`${id}`} />
         </>
