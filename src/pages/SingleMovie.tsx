@@ -12,7 +12,7 @@ const SingleMovie = () => {
   const { data, isSuccess } = useGetMovieByIDQuery(Number(id));
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       {isSuccess ? (
         <>
           <Title>{data?.name}</Title>
