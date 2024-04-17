@@ -9,7 +9,6 @@
 ### Локально
 
 ```bash
-git clone git@github.com:FasTrss/my-movie-app.git
 npm install
 TOKEN=<your api token> npm run start
 ```
